@@ -1,0 +1,2 @@
+GET https://newsapi.org/v2/top-headlines?country=tr&apiKey=6053714b8d8b4f9bb128254669333953
+Accept: application/json
