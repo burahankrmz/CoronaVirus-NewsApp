@@ -1,6 +1,8 @@
 import 'package:covidapp/ui/pages/news.dart';
+import 'package:covidapp/ui/pages/newsbycountries.dart';
 import 'package:covidapp/ui/widgets/covidVeri.dart';
 import 'package:covidapp/viewmodel/listviewcovidmodel.dart';
+import 'package:covidapp/viewmodel/listviewnewsmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,22 +20,33 @@ class _AnaSayfaState extends State<AnaSayfa> {
     });
   }
 
-  List<Widget> _children = [
-    News(),
-    News(),
-    News(),
-  ];
+  List<Widget> _children(ListViewCovidModel listViewCovidModel,
+          ListViewNewsModel modelNewsArticle) =>
+      [
+        CovidVeri(
+          listViewCovidModel: listViewCovidModel,
+        ),
+        NewsByCountries(),
+        News(
+          articles: modelNewsArticle,
+        ),
+      ];
 
   @override
   void initState() {
     super.initState();
     Provider.of<ListViewCovidModel>(context, listen: false)
         .fetchCovidByCountry();
+    Provider.of<ListViewNewsModel>(context, listen: false)
+        .fetchTopNewsHeadline();
   }
 
   @override
   Widget build(BuildContext context) {
     var listviewcovidmodel = Provider.of<ListViewCovidModel>(context);
+    var listviewnewsmodel = Provider.of<ListViewNewsModel>(context);
+    final List<Widget> children =
+        _children(listviewcovidmodel, listviewnewsmodel);
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -41,9 +54,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           "Covid Takip",
         )),
       ),
-      body: CovidVeri(
-        listViewCovidModel: listviewcovidmodel,
-      ),
+      body: children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -60,7 +71,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           ),
         ],
         currentIndex: _currentIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );

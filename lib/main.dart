@@ -1,5 +1,6 @@
 import 'package:covidapp/ui/pages/mainpage.dart';
 import 'package:covidapp/viewmodel/listviewcovidmodel.dart';
+import 'package:covidapp/viewmodel/listviewnewsmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (_) => ListViewCovidModel(),
-          )
+          ),
+          ChangeNotifierProvider(create: (_) => ListViewNewsModel()),
         ],
         child: AnaSayfa(),
       ),

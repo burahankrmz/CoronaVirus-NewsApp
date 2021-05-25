@@ -1,19 +1,23 @@
-class NewsArticle {
+class ModelNewsArticle {
+  String title;
+  String publishedAt;
+  String description;
+  String url;
+  String urlToImage;
 
-  final String title;
-  final String description;
-  final String urlToImage;
-  final String url;
+  ModelNewsArticle(
+      {this.title,
+      this.publishedAt,
+      this.description,
+      this.url,
+      this.urlToImage});
 
-  NewsArticle({this.title, this.description, this.urlToImage, this.url});
-
-  factory NewsArticle.fromJSON(Map<String, dynamic> json) {
-    return NewsArticle(
-      title: json["title"],
-      description: json["description"],
-      urlToImage: json["urlToImage"],
-      url: json["url"]
-    );
+  factory ModelNewsArticle.fromJson(Map<String, dynamic> json) {
+    return ModelNewsArticle(
+        title: json['title'],
+        description: json['description'],
+        urlToImage: json['urlToImage'],
+        url: json['url'],
+        publishedAt: json['publishedAt']);
   }
-
 }

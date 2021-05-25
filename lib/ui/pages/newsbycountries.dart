@@ -1,28 +1,74 @@
 import 'package:covidapp/ui/pages/newsdetail.dart';
+import 'package:covidapp/utils/constants.dart';
 import 'package:covidapp/viewmodel/listviewnewsmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class News extends StatelessWidget {
-  final ListViewNewsModel articles;
-  News({this.articles});
+class NewsByCountries extends StatefulWidget {
+  @override
+  _NewsByCountriesState createState() => _NewsByCountriesState();
+}
+
+class _NewsByCountriesState extends State<NewsByCountries> {
+  int _value = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ListViewNewsModel>(context, listen: false)
+        .fetchTopNewsHeadline();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var listviewnewsmodel = Provider.of<ListViewNewsModel>(context);
     return Column(
       children: [
+        DropdownButton(
+          hint: Text("Ülke Seçiniz"),
+          items: [
+            DropdownMenuItem(
+              child: Text("Turkey"),
+              value: 1,
+            ),
+            DropdownMenuItem(
+              child: Text("France"),
+              value: 2,
+            ),
+            DropdownMenuItem(
+              child: Text("USA"),
+              value: 3,
+            ),
+            DropdownMenuItem(
+              child: Text("Germany"),
+              value: 4,
+            ),
+            DropdownMenuItem(
+              child: Text("China"),
+              value: 5,
+            ),
+          ],
+          onChanged: (value) {
+            setState(() {
+              _value = value;
+              listviewnewsmodel.fetchNewsByCountry(Constants.Countries[_value]);
+            });
+          },
+        ),
         Expanded(
           child: ListView.builder(
-              itemCount: articles.articles.length,
+              itemCount: listviewnewsmodel.articles.length,
               itemBuilder: (_, index) {
                 var image;
                 var articledesc;
-                (articles.articles[index].urlToImage == null)
+                (listviewnewsmodel.articles[index].urlToImage == null)
                     ? image =
                         "https://www.guzel.net.tr/blog/wp-content/uploads/2019/03/27.03-575x355.png"
-                    : image = articles.articles[index].urlToImage;
-                (articles.articles[index].description == null)
+                    : image = listviewnewsmodel.articles[index].urlToImage;
+                (listviewnewsmodel.articles[index].description == null)
                     ? articledesc = "Haber Bulunamadı..."
-                    : articledesc = articles.articles[index].description;
+                    : articledesc =
+                        listviewnewsmodel.articles[index].description;
 
                 return Material(
                   borderRadius: BorderRadius.circular(15),
@@ -32,7 +78,7 @@ class News extends StatelessWidget {
                           builder: (context) => Detay(
                                 imgPath: image,
                                 description: articledesc,
-                                title: articles.articles[index].title,
+                                title: listviewnewsmodel.articles[index].title,
                               )));
                     },
                     child: Hero(
@@ -65,7 +111,8 @@ class News extends StatelessWidget {
                                 Container(
                                   width: 220,
                                   child: Text(
-                                    articles.articles[index].publishedAt,
+                                    listviewnewsmodel
+                                        .articles[index].publishedAt,
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                 ),
@@ -78,7 +125,7 @@ class News extends StatelessWidget {
                                   child: Column(
                                     children: <Widget>[
                                       Text(
-                                        articles.articles[index].title,
+                                        listviewnewsmodel.articles[index].title,
                                         style: TextStyle(
                                             color: Colors.blue.shade900,
                                             fontSize: 14,

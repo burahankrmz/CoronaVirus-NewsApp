@@ -1,37 +1,36 @@
 import 'dart:convert';
-import 'package:covidapp/model/covid.dart';
 import 'package:covidapp/model/covidmodel.dart';
+import 'package:covidapp/model/newsmodel.dart';
 import 'package:covidapp/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class Webservice {
   // ignore: missing_return
 
-  Future<List<Welcome>> fetchCovidData() async {
-    final response = await http.get(Uri.parse(Constants.covidUri));
+  Future<List<ModelNewsArticle>> getTopHeadlines() async {
+    final response = await http.get(Uri.parse(Constants.newstopheadlines));
     if (response.statusCode == 200) {
-      final result = json.decode(response.body);
-      Iterable list = result;
-      return list.map((covid) => Welcome.fromJson(covid)).toList();
+      var result = jsonDecode(response.body);
+      Iterable list = result["articles"];
+      return list.map((article) => ModelNewsArticle.fromJson(article)).toList();
     } else {
-      throw Exception("Failed to get covid");
+      throw Exception("Failed to get News!!!");
+    }
+  }
+
+  Future<List<ModelNewsArticle>> getNewsByCountry(String country) async {
+    final response = await http.get(Uri.parse(Constants.headlinesFor(country)));
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+      Iterable list = result["articles"];
+      return list.map((article) => ModelNewsArticle.fromJson(article)).toList();
+    } else {
+      throw Exception("Failed to get Country News");
     }
   }
 
   Future<List<ModelCovid>> getCovidData() async {
     final response = await http.get(Uri.parse(Constants.covidUri));
-    if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
-      Iterable list = result;
-      return list.map((covid) => ModelCovid.fromJson(covid)).toList();
-    } else {
-      throw Exception("Failed to get Covid Data!!!");
-    }
-  }
-
-  Future<List<ModelCovid>> getCountryCovidData(String country) async {
-    final response =
-        await http.get(Uri.parse(Constants.covidForCountry(country)));
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       Iterable list = result;
