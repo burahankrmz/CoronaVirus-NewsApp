@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NewsByCountries extends StatefulWidget {
+  const NewsByCountries({Key key}) : super(key: key);
+
   @override
   _NewsByCountriesState createState() => _NewsByCountriesState();
 }
@@ -25,8 +27,8 @@ class _NewsByCountriesState extends State<NewsByCountries> {
     return Column(
       children: [
         DropdownButton(
-          hint: Text("Ülke Seçiniz"),
-          items: [
+          hint: const Text("Ülke Seçiniz"),
+          items: const [
             DropdownMenuItem(
               child: Text("Turkey"),
               value: 1,
@@ -51,7 +53,7 @@ class _NewsByCountriesState extends State<NewsByCountries> {
           onChanged: (value) {
             setState(() {
               _value = value;
-              listviewnewsmodel.fetchNewsByCountry(Constants.Countries[_value]);
+              listviewnewsmodel.fetchNewsByCountry(Constants.countries[_value]);
             });
           },
         ),
@@ -59,8 +61,8 @@ class _NewsByCountriesState extends State<NewsByCountries> {
           child: ListView.builder(
               itemCount: listviewnewsmodel.articles.length,
               itemBuilder: (_, index) {
-                var image;
-                var articledesc;
+                dynamic image;
+                dynamic articledesc;
                 (listviewnewsmodel.articles[index].urlToImage == null)
                     ? image =
                         "https://www.guzel.net.tr/blog/wp-content/uploads/2019/03/27.03-575x355.png"
@@ -83,11 +85,11 @@ class _NewsByCountriesState extends State<NewsByCountries> {
                     },
                     child: Hero(
                       tag: "aga",
-                      child: Container(
+                      child: SizedBox(
                         height: 120,
                         child: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Container(
@@ -100,26 +102,26 @@ class _NewsByCountriesState extends State<NewsByCountries> {
                                     fit: BoxFit.cover),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Column(
                               children: <Widget>[
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
-                                Container(
+                                SizedBox(
                                   width: 220,
                                   child: Text(
                                     listviewnewsmodel
                                         .articles[index].publishedAt,
-                                    style: TextStyle(color: Colors.grey),
+                                    style: const TextStyle(color: Colors.grey),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
-                                Container(
+                                SizedBox(
                                   //color: Colors.black,
                                   width: 220,
                                   child: Column(

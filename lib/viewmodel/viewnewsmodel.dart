@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class ViewNewsModel {
   // ignore: deprecated_member_use
-  ModelNewsArticle _modelNewsArticle;
+  final ModelNewsArticle _modelNewsArticle;
 
   ViewNewsModel({ModelNewsArticle article}) : _modelNewsArticle = article;
 

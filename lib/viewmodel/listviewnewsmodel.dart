@@ -4,27 +4,27 @@ import 'package:covidapp/viewmodel/viewnewsmodel.dart';
 import 'package:flutter/cupertino.dart';
 
 enum LoadingStatus {
-  Completed,
-  Searching,
-  Empty,
+  completed,
+  searching,
+  empty,
 }
 
 class ListViewNewsModel extends ChangeNotifier {
-  LoadingStatus loadingStatus = LoadingStatus.Empty;
+  LoadingStatus loadingStatus = LoadingStatus.empty;
   // ignore: deprecated_member_use
-  List<ViewNewsModel> articles = List<ViewNewsModel>();
+  List<ViewNewsModel> articles = <ViewNewsModel>[];
 
   void fetchTopNewsHeadline() async {
     List<ModelNewsArticle> _newsarticle = await Webservice().getTopHeadlines();
-    loadingStatus = LoadingStatus.Searching;
+    loadingStatus = LoadingStatus.searching;
     notifyListeners();
-    this.articles = _newsarticle
+    articles = _newsarticle
         .map((articles) => ViewNewsModel(article: articles))
         .toList();
-    if (this.articles.isEmpty) {
-      loadingStatus = LoadingStatus.Empty;
+    if (articles.isEmpty) {
+      loadingStatus = LoadingStatus.empty;
     } else {
-      loadingStatus = LoadingStatus.Completed;
+      loadingStatus = LoadingStatus.completed;
     }
     notifyListeners();
   }
@@ -33,14 +33,14 @@ class ListViewNewsModel extends ChangeNotifier {
     List<ModelNewsArticle> _newsarticle =
         await Webservice().getNewsByCountry(country);
 
-    loadingStatus = LoadingStatus.Searching;
-    this.articles = _newsarticle
+    loadingStatus = LoadingStatus.searching;
+    articles = _newsarticle
         .map((articles) => ViewNewsModel(article: articles))
         .toList();
-    if (this.articles.isEmpty) {
-      loadingStatus = LoadingStatus.Empty;
+    if (articles.isEmpty) {
+      loadingStatus = LoadingStatus.empty;
     } else {
-      loadingStatus = LoadingStatus.Completed;
+      loadingStatus = LoadingStatus.completed;
     }
     notifyListeners();
   }

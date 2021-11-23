@@ -1,12 +1,14 @@
 import 'package:covidapp/ui/pages/news.dart';
 import 'package:covidapp/ui/pages/newsbycountries.dart';
-import 'package:covidapp/ui/widgets/covidVeri.dart';
+import 'package:covidapp/ui/widgets/coviddata.dart';
 import 'package:covidapp/viewmodel/listviewcovidmodel.dart';
 import 'package:covidapp/viewmodel/listviewnewsmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AnaSayfa extends StatefulWidget {
+  const AnaSayfa({Key key}) : super(key: key);
+
   @override
   _AnaSayfaState createState() => _AnaSayfaState();
 }
@@ -26,7 +28,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         CovidVeri(
           listViewCovidModel: listViewCovidModel,
         ),
-        NewsByCountries(),
+        const NewsByCountries(),
         News(
           articles: modelNewsArticle,
         ),
@@ -49,7 +51,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         _children(listviewcovidmodel, listviewnewsmodel);
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
             child: Text(
           "Covid Takip",
         )),

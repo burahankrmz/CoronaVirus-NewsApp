@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class Detay extends StatefulWidget {
-  Detay({this.imgPath, this.description, this.title});
-  var imgPath;
-  var description;
-  var title;
+  Detay({Key key, this.imgPath, this.description, this.title}) : super(key: key);
+  dynamic imgPath;
+  dynamic description;
+  dynamic title;
 
   @override
   _DetayState createState() => _DetayState();
@@ -17,17 +17,17 @@ class _DetayState extends State<Detay> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Column(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 23,
                 ),
                 Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height - 23,
                       child: Stack(
                         children: [
@@ -52,18 +52,18 @@ class _DetayState extends State<Detay> {
                           Positioned(
                             top: 200,
                             child: Material(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(50),
                                   topRight: Radius.circular(50)),
                               elevation: 4,
-                              child: Container(
+                              child: SizedBox(
                                 height: MediaQuery.of(context).size.height - 23,
                                 width: MediaQuery.of(context).size.width,
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: <Widget>[
-                                      SizedBox(height: 50),
-                                      Container(
+                                      const SizedBox(height: 50),
+                                      SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width -
                                                 60,
@@ -73,7 +73,7 @@ class _DetayState extends State<Detay> {
                                         child: SingleChildScrollView(
                                           child: Column(
                                             children: [
-                                              Container(
+                                              SizedBox(
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width -
@@ -81,13 +81,13 @@ class _DetayState extends State<Detay> {
                                                 height: 100,
                                                 child: Text(
                                                   widget.title,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 22),
                                                 ),
                                               ),
-                                              Container(
+                                              SizedBox(
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width -
@@ -95,7 +95,7 @@ class _DetayState extends State<Detay> {
                                                 child: Text(
                                                   widget.description,
                                                   style:
-                                                      TextStyle(fontSize: 20),
+                                                      const TextStyle(fontSize: 20),
                                                 ),
                                               ),
                                             ],

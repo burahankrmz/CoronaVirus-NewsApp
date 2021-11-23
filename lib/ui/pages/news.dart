@@ -2,9 +2,12 @@ import 'package:covidapp/ui/pages/newsdetail.dart';
 import 'package:covidapp/viewmodel/listviewnewsmodel.dart';
 import 'package:flutter/material.dart';
 
+
+
 class News extends StatelessWidget {
   final ListViewNewsModel articles;
-  News({this.articles});
+   const News({ Key key, this.articles }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +17,8 @@ class News extends StatelessWidget {
           child: ListView.builder(
               itemCount: articles.articles.length,
               itemBuilder: (_, index) {
-                var image;
-                var articledesc;
+                dynamic image;
+                dynamic articledesc;
                 (articles.articles[index].urlToImage == null)
                     ? image =
                         "https://www.guzel.net.tr/blog/wp-content/uploads/2019/03/27.03-575x355.png"
@@ -37,11 +40,11 @@ class News extends StatelessWidget {
                     },
                     child: Hero(
                       tag: "aga",
-                      child: Container(
+                      child: SizedBox(
                         height: 120,
                         child: Row(
-                          children: [
-                            SizedBox(
+                          children:[
+                            const SizedBox(
                               width: 10,
                             ),
                             Container(
@@ -54,25 +57,25 @@ class News extends StatelessWidget {
                                     fit: BoxFit.cover),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Column(
                               children: <Widget>[
-                                SizedBox(
+                                const SizedBox(
                                   height: 15,
                                 ),
-                                Container(
+                                SizedBox(
                                   width: 220,
                                   child: Text(
                                     articles.articles[index].publishedAt,
-                                    style: TextStyle(color: Colors.grey),
+                                    style: const TextStyle(color: Colors.grey),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
-                                Container(
+                                SizedBox(
                                   //color: Colors.black,
                                   width: 220,
                                   child: Column(

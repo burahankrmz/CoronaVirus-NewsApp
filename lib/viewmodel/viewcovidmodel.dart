@@ -1,7 +1,7 @@
 import 'package:covidapp/model/covidmodel.dart';
 
 class ViewCovidModel {
-  ModelCovid _modelCovid;
+  final ModelCovid _modelCovid;
 
   ViewCovidModel({ModelCovid covid}) : _modelCovid = covid;
 

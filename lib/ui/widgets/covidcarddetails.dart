@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class CovidCardDetail extends StatelessWidget {
   final ListViewCovidModel covidDatalist;
 
-  CovidCardDetail({this.covidDatalist});
+  const CovidCardDetail({Key key, this.covidDatalist}) : super(key: key);
 
   @override
   // ignore: missing_return
   Widget build(BuildContext context) {
     if (covidDatalist.covidData.isEmpty) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     } else if (covidDatalist.covidData.isNotEmpty) {
       return Center(
         child: Padding(
@@ -18,16 +18,16 @@ class CovidCardDetail extends StatelessWidget {
           child: Material(
             elevation: 4,
             borderRadius: BorderRadius.circular(15),
-            child: Container(
+            child: SizedBox(
               height: (MediaQuery.of(context).size.height / 5) + 16,
               width: MediaQuery.of(context).size.width - 60,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
+                      padding: EdgeInsets.only(left: 16.0),
                       child: Text(
                         "SON DURUMLAR",
                         style: TextStyle(
@@ -38,7 +38,7 @@ class CovidCardDetail extends StatelessWidget {
                     ),
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
                         width: 16,
                       ),
@@ -58,10 +58,10 @@ class CovidCardDetail extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Container(
+                      SizedBox(
                         child: Text(
                           "${covidDatalist.covidData[0].cases.toString()}\n   Vaka",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.orange,
                               fontWeight: FontWeight.bold),
                         ),
@@ -71,10 +71,10 @@ class CovidCardDetail extends StatelessWidget {
                         height: 40,
                         width: 1,
                       ),
-                      Container(
+                      SizedBox(
                         child: Text(
                           "${covidDatalist.covidData[0].cases.toString()}\n   Ölüm",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -83,10 +83,10 @@ class CovidCardDetail extends StatelessWidget {
                         height: 40,
                         width: 1,
                       ),
-                      Container(
+                      SizedBox(
                         child: Text(
                           "${covidDatalist.covidData[0].cases.toString()}\n İyileşen",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.green, fontWeight: FontWeight.bold),
                         ),
                       ),

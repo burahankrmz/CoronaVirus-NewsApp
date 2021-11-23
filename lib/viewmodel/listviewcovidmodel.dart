@@ -3,28 +3,26 @@ import 'package:covidapp/services/webservices.dart';
 import 'package:flutter/cupertino.dart';
 
 enum LoadingStatus {
-  Completed,
-  Searching,
-  Empty,
+  completed,
+  searching,
+  empty,
 }
 
 class ListViewCovidModel extends ChangeNotifier {
-  LoadingStatus loadingStatus = LoadingStatus.Empty;
-  // ignore: deprecated_member_use
-  List<ModelCovid> covidData = List<ModelCovid>();
-
+  LoadingStatus loadingStatus = LoadingStatus.empty;
+  List<ModelCovid> covidData = <ModelCovid>[];
   void fetchCovidByCountry() async {
     List<ModelCovid> _covidData = await Webservice().filteredList();
 
-    loadingStatus = LoadingStatus.Searching;
+    loadingStatus = LoadingStatus.searching;
     notifyListeners();
 
-    this.covidData = _covidData;
+    covidData = _covidData;
 
-    if (this.covidData.isEmpty) {
-      loadingStatus = LoadingStatus.Empty;
+    if (covidData.isEmpty) {
+      loadingStatus = LoadingStatus.empty;
     } else {
-      loadingStatus = LoadingStatus.Completed;
+      loadingStatus = LoadingStatus.completed;
     }
     notifyListeners();
   }
